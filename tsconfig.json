@@ -1,0 +1,56 @@
+// {
+//     "compilerOptions": {
+//       "target": "es5",
+//       "lib": [
+//         "es2015", "es2016", "dom",
+//         "dom.iterable",
+//         "esnext"
+//       ],
+//       "plugins": [{ "name": "typescript-plugin-css-modules" }],
+//       "allowJs": true,
+//       "skipLibCheck": true,
+//       "esModuleInterop": true,
+//       "allowSyntheticDefaultImports": true,
+//       "strict": true,
+//       "forceConsistentCasingInFileNames": true,
+//       "noFallthroughCasesInSwitch": true,
+//       "module": "esnext",
+//       "moduleResolution": "node",
+//       "resolveJsonModule": true,
+//       "isolatedModules": true,
+//       "noEmit": false,
+//       "jsx": "react-jsx",
+//       "baseUrl": "src",
+//       "paths": {
+//         "*": ["src/*"]
+//       },
+//     },
+//     "include": ["src/**/*.ts", "webpack.config.ts", "src/services/api/api.js" ],
+//     "exclude": ["node_modules", ".vscode"]
+//   }
+{
+  "compilerOptions": {
+    "target": "es5",
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
+    "allowJs": true,
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "noFallthroughCasesInSwitch": true,
+    "module": "esnext",
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": true,
+    "jsx": "react-jsx"
+  },
+  "include": [
+    "src"
+  ]
+}
