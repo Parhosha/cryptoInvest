@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
+import Loader from '../../common/loader/Loader';
 import Wrapper from '../../common/wrapper/Wrapper';
 import { calculatePeriod } from '../../helpers/pipeAnalytics';
 
@@ -16,26 +17,33 @@ const Statistic = () => {
     const [parameters, setParameters] = useState(null)
     const [wallet, setWallet] = useState(null)
     const [lastDay, setLastDay] = useState(null)
+    const [profit, setProfit] = useState(false)
 
     useEffect(()=>{
 
         if(data.history.length ){
             
-            const times = calculatePeriod(data.form.start, data.form.end, data.form.period, data.history) 
-            setParameters({...parameters, ...data.form})
-            setWallet({times: times.buyCount, account: times.wallet})
+            const calculateResult = calculatePeriod(data.form.start, data.form.end, data.form.period, data.history) 
+            setParameters({ ...data.form})
+            setWallet({times: calculateResult.buyCount, account: calculateResult.wallet})
+
             let endOfPeriodPrice = data.history[data.history.length - 1]
             endOfPeriodPrice = (endOfPeriodPrice.price_high + endOfPeriodPrice.price_low) / 2
             setLastDay(endOfPeriodPrice)
+
+            const styleProfite = calculateResult.wallet * endOfPeriodPrice >  calculateResult.buyCount * data.form.amount
+            setProfit(styleProfite)
+
         }
         
     },[data])
     return (
         <Wrapper className={style.Statistic}>
-                {parameters && wallet &&<p>If buy each {parameters && daysOfWeek[+parameters.period] + ' '} 
-                    BTC on {`${parameters.amount}  ${parameters.currency}`} <br /> in period from {parameters.start} to {parameters.end}
-                    it will spent {wallet.times * 100} {parameters.currency} equal to {wallet.account} BTC 
-                    and if sell in {parameters.end} it will coast: { lastDay && wallet.account * lastDay } </p>}
+                {parameters ? <p>Day of buying: {daysOfWeek[+parameters.period] + ' '} <br />
+                    Amount: {`${parameters.amount}  ${parameters.currency}`} <br /> 
+                    Period:  from {parameters.start} to {parameters.end} <br />
+                    Sessions: {wallet.times} buys equal <b>{wallet.account.toString().slice(0,6)}</b> BTC <br />
+                    In: {parameters.end} it will coast: <b className={profit ? style.plus : style.minus}> { wallet.account * lastDay } </b></p>: <Loader />}
             
         </Wrapper>
     );

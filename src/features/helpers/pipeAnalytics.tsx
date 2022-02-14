@@ -6,7 +6,7 @@ export const calculatePeriod = (start, end, dayBuy, history) => {
 
     while(formatDate(actualData) !== endFormatted ){
 
-        if(actualData.getDay() == dayBuy ){
+        if(+actualData.getDay() === +dayBuy ){
             buyCount++
             wallet = wallet + buy(actualData, history) 
         }  

@@ -1,8 +1,9 @@
 import { Formik, Field, Form, FormikHelpers } from 'formik';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import Wrapper from '../../common/wrapper/Wrapper';
 import { getData } from "../../Redux/Chart/ChartReducer"
 import { action } from "../../Redux/Form/FormReducer"
+import { initialValues } from './config';
 import style from './Forms.module.sass'
 
 interface Values {
@@ -11,8 +12,17 @@ interface Values {
   period: string;
   currency: string;
   amount: string;
+  time: string;
 }
 
+const timesOptions = () => {
+  const times = []
+  for(let i =0; i < 24; i++){
+    times.push(<option value={`${i}:00`} key={i}>{i +`:00`}</option>)
+  }
+  console.log(times)
+  return times
+}
 
 const Forms = ({ handleState }) => {
  
@@ -20,13 +30,7 @@ const Forms = ({ handleState }) => {
     return (
       <Wrapper className={style.forms}>
           <Formik
-        initialValues={{
-          start: '2022-01-30',
-          end: '2022-02-08',
-          period: '0',
-          currency: 'USDT',
-          amount: '100'
-        }}
+        initialValues={initialValues}
         onSubmit={(
           values: Values,
           { setSubmitting }: FormikHelpers<Values>
@@ -59,6 +63,11 @@ const Forms = ({ handleState }) => {
              <option value="4">Thursday</option>
              <option value="5">Friday</option>
              <option value="6">Saturday</option>
+           </Field>
+
+           <label htmlFor="time">Time</label>
+           <Field as="select" id="time" name="time">
+             {timesOptions()}
            </Field>
 
 
