@@ -1,5 +1,6 @@
 {
     "compilerOptions": {
+      "sourceMap": true,
       "target": "es5",
       "lib": [
         "es2015", "es2016", "dom",
@@ -25,7 +26,6 @@
         "*": ["src/*"]
       },
     },
-    "include": ["src/**/*.ts", "webpack.config.ts", "src/services/api/api.js" ],
+    "include": ["src/**/*"],
     "exclude": ["node_modules", ".vscode"]
-  }
-  
+}

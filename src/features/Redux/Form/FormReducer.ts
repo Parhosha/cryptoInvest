@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/ban-types */
 
-interface IForm {
+export interface IForm {
 	start: string;
     end: string;
     period: string;

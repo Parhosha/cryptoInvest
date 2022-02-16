@@ -1,4 +1,10 @@
-export const calculatePeriod = (start, end, dayBuy, history) => {
+interface IHistory {
+    time_open: string;
+}
+
+export const calculatePeriod = (start: string, end: string, dayBuy: string, history: Array<object>) => {
+    // console.log(start, end, dayBuy, history)
+
     let buyCount = 0
     let actualData = new Date(start)
     let endFormatted = formatDate(new Date(new Date(end).getTime() + 86400000))
@@ -19,9 +25,10 @@ export const calculatePeriod = (start, end, dayBuy, history) => {
 
 const buy = (day: any, history: any) =>{
     
+    
     const formattedDate = formatDate(day)
-    const selectedDay = history.find(el => (el.time_open.search(formattedDate) + 1))
 
+    const selectedDay = history.find((el: IHistory) => (el.time_open.search(formattedDate) + 1))
     return  100 / selectedDay.price_open
 }
 

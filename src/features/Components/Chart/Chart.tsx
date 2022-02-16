@@ -33,8 +33,8 @@ ChartJS.register(
 const getChart = (store: any) => store.ChartReducer
 
 export interface IOptionsState {
-	options: object;
-	params: object;
+	options: object | null;
+	params: object | null;
   }
 
 const Chart = () => {
@@ -52,7 +52,7 @@ const Chart = () => {
 
 	return (
 		<Wrapper className={style.Chart}>
-            {Options.params ? <Line options={Options.options} data={Options.params as any} /> : <Loader />}
+            {Options.params ? <Line options={Options.options || {}} data={Options.params as any} /> : <Loader />}
 		</Wrapper>
     );
 };

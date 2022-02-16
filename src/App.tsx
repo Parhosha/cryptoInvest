@@ -17,6 +17,9 @@ function App() {
         {step === 'analytics' && <>
           <Chart />
           <Statistic />
+          <button className={style.backBtn} onClick={()=>setStep('form')}>
+            Back
+          </button>
         </>}
       </div>
     </Provider>

@@ -1,21 +1,24 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import Loader from '../../common/loader/Loader';
+import { IForm } from '../../Redux/Form/FormReducer';
 import Wrapper from '../../common/wrapper/Wrapper';
 import { calculatePeriod } from '../../helpers/pipeAnalytics';
+import { daysOfWeek } from '../../../constants/params';
 
 import style from "./Statistic.module.sass"
 
 const selectParameter = ( store: any ) => ({ form: store.FormReducer, history: store.ChartReducer.history })
 
-const daysOfWeek = [ 'Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
-
-
+interface IWallet {
+	times: number | null;
+	account: number | null;
+}
 
 const Statistic = () => {
     const data = useSelector(selectParameter)
-    const [parameters, setParameters] = useState(null)
-    const [wallet, setWallet] = useState(null)
+    const [parameters, setParameters] = useState<IForm | null>(null)
+    const [wallet, setWallet] = useState <IWallet>({times: null, account: null})
     const [lastDay, setLastDay] = useState(null)
     const [profit, setProfit] = useState(false)
 
@@ -42,8 +45,8 @@ const Statistic = () => {
                 {parameters ? <p>Day of buying: {daysOfWeek[+parameters.period] + ' '} <br />
                     Amount: {`${parameters.amount}  ${parameters.currency}`} <br /> 
                     Period:  from {parameters.start} to {parameters.end} <br />
-                    Sessions: {wallet.times} buys equal <b>{wallet.account.toString().slice(0,6)}</b> BTC <br />
-                    In: {parameters.end} it will coast: <b className={profit ? style.plus : style.minus}> { wallet.account * lastDay } </b></p>: <Loader />}
+                    Sessions: {wallet.times} buys equal <b>{wallet.account!.toString().slice(0,6)}</b> BTC <br />
+                    In: {parameters.end} it will coast: <b className={profit ? style.plus : style.minus}> { wallet.account! * lastDay! } </b></p>: <Loader />}
             
         </Wrapper>
     );
