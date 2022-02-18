@@ -3,19 +3,21 @@
 export interface IForm {
 	start: string;
     end: string;
-    period: string;
+    dayOfWeek: string;
     currency: string;
     amount: string;
+	time: string;
 }
 
 
-const formState: IForm = { start: '', end: '', period: '', currency: '', amount: '' };
+const formState: IForm = { start: '', end: '', dayOfWeek: '', currency: '', amount: '', time: '' };
 
 export default function FormReducer(state = formState, action: any) {
 	switch (action.type) {
 		case 'SET_PARAMS':
 
-            return {...state, ...action.payload}
+		return {...state, ...action.payload}
+
 		default:
 			return state;
 	}

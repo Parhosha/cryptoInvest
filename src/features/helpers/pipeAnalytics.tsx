@@ -1,38 +1,40 @@
 interface IHistory {
-    time_open: string;
+    time: string;
 }
 
-export const calculatePeriod = (start: string, end: string, dayBuy: string, history: Array<object>) => {
-    // console.log(start, end, dayBuy, history)
+export const calculatePeriod = (start: string, end: string, dayBuy: string, history?: Array<object>) => {
 
-    let buyCount = 0
+    let tradeDays = []
     let actualData = new Date(start)
     let endFormatted = formatDate(new Date(new Date(end).getTime() + 86400000))
     let wallet = 0
 
     while(formatDate(actualData) !== endFormatted ){
 
-        if(+actualData.getDay() === +dayBuy ){
-            buyCount++
-            wallet = wallet + buy(actualData, history) 
+        if(+actualData.getDay() === +dayBuy){
+            tradeDays.push(formatDate(actualData))
+            
+            if(history)
+                wallet = wallet + buy(actualData, history) 
         }  
             
-        actualData.setDate(actualData.getDate() + 1)
+            actualData.setDate(actualData.getDate() + 1)
         }
 
-    return {buyCount: buyCount, wallet: wallet}
+        console.log(wallet)
+    return {buyCount: tradeDays, wallet: wallet}
 }
 
 const buy = (day: any, history: any) =>{
     
-    
     const formattedDate = formatDate(day)
+    const selectedDay = history.find((el: IHistory) => (el.time.search(formattedDate) + 1))
+    console.log(selectedDay.time, selectedDay.rate, 100 / selectedDay.rate)
 
-    const selectedDay = history.find((el: IHistory) => (el.time_open.search(formattedDate) + 1))
-    return  100 / selectedDay.price_open
+    return  100 / selectedDay.rate
 }
 
-const formatDate = (date: any) => {
+export const formatDate = (date: any) => {
 
     const offset = date.getTimezoneOffset()
     date = new Date(date.getTime() - (offset*60*2000))

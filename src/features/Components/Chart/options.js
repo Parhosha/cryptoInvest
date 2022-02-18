@@ -1,10 +1,10 @@
 export default function getChartOptions(history, type) {
 	const labels = []
 	const values = []
-	
+
 	history.forEach((el) =>{ 
-		labels.push(el.time_open.slice(0,8))
-		values.push(el.price_close)
+		labels.push(el.time.slice(0,8))
+		values.push(el.rate)
 	 })
 
 	 return {

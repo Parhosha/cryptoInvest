@@ -6,6 +6,7 @@ import Chart from './features/Components/Chart/Chart';
 import Statistic from './features/Components/Statistic/Statistic';
 
 import style from './App.module.sass'
+import ReactTooltip from 'react-tooltip';
 
 function App() {
   const [step, setStep] = useState('form')
@@ -22,6 +23,7 @@ function App() {
           </button>
         </>}
       </div>
+      <ReactTooltip />
     </Provider>
   );
 }

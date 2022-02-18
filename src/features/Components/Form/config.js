@@ -11,8 +11,8 @@ export const SignupSchema = Yup.object().shape({
 export const initialValues = {
     start: '2022-01-30',
     end: '2022-02-08',
-    period: '0',
+    dayOfWeek: '0',
     currency: 'USDT',
     amount: '100',
-    time: '10:00'
+    time: 'Average'
 }
