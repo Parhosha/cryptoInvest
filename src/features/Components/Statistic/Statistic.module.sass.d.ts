@@ -5,6 +5,8 @@ interface CssExports {
   'appear': string;
   'minus': string;
   'plus': string;
+  'backBtn': string;
+  'content': string;
 }
 export const cssExports: CssExports;
 export default cssExports;

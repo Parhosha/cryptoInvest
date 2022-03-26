@@ -1,5 +1,6 @@
 import { useSelector } from 'react-redux';
 import { Line } from 'react-chartjs-2';
+import Loader from '../../common/loader/Loader';
 import { useState, useEffect } from 'react';
 import getChartOptions from './options.js';
 import Wrapper from '../../common/wrapper/Wrapper';
@@ -16,7 +17,6 @@ import {
 } from 'chart.js';
 
 import style from "./Chart.module.sass"
-import Loader from '../../common/loader/Loader.jsx';
 
 
 ChartJS.register(
@@ -50,10 +50,12 @@ const Chart = () => {
 	}, [chart])
 	
 
-	return (
+	return(
 		<Wrapper className={style.Chart}>
-            {Options.params ? <Line options={Options.options || {}} data={Options.params as any} /> : <Loader />}
-		</Wrapper>
+            {Options.params ? 
+				<Line options={Options.options || {}} data={Options.params as any} /> 
+				: <Loader />}
+		</Wrapper> 
     );
 };
 

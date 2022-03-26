@@ -21,15 +21,14 @@ export const calculatePeriod = (start: string, end: string, dayBuy: string, hist
             actualData.setDate(actualData.getDate() + 1)
         }
 
-        console.log(wallet)
     return {buyCount: tradeDays, wallet: wallet}
 }
 
 const buy = (day: any, history: any) =>{
     
+
     const formattedDate = formatDate(day)
     const selectedDay = history.find((el: IHistory) => (el.time.search(formattedDate) + 1))
-    console.log(selectedDay.time, selectedDay.rate, 100 / selectedDay.rate)
 
     return  100 / selectedDay.rate
 }

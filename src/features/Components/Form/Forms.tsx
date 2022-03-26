@@ -1,10 +1,11 @@
 import { TIME_TOOLTIP } from '../../../constants/words';
-import { Formik, Field, Form, FormikHelpers } from 'formik';
+import { Formik, Field, Form } from 'formik';
 import { useDispatch } from 'react-redux';
 import Wrapper from '../../common/wrapper/Wrapper';
 import { getData } from "../../Redux/Chart/ChartReducer"
 import { action } from "../../Redux/Form/FormReducer"
 import { initialValues } from './config';
+import { useNavigate } from 'react-router-dom';
 import formOptions from '../../../constants/params';
 
 import style from './Forms.module.sass'
@@ -17,63 +18,60 @@ interface Values {
   amount: string;
   time: string;
 }
-interface IForms{
-  handleState: () => void;
-}
 
 
-const Forms = ({ handleState }:IForms ) => {
- 
- const dispatch = useDispatch()
-    return (
-      <Wrapper className={style.forms}>
-          <Formik
+const Forms = () => {
+  const navigate = useNavigate();
+  const dispatch = useDispatch()
+
+  return (
+    <Wrapper className={style.forms}>
+      <Formik
         initialValues={initialValues}
         onSubmit={(
-          values: Values,
-          { setSubmitting }: FormikHelpers<Values>
+          values: Values
         ) => {
-          
+
           setTimeout(async () => {
             dispatch(action.setParameters(values))
-            const { type }: any = await dispatch(getData(values.start, values.end, values.currency, values.time, values.dayOfWeek))
+            navigate('/Statistic');
+            await dispatch(getData(values.start, values.end, values.currency, values.time, values.dayOfWeek))
 
-            if(type.slice(-7) === `SUCCESS`)
-             handleState()
-            setSubmitting(false);
+
+            // setSubmitting(false);
           }, 500);
         }}
       >
         <Form className={style.form}>
           <label htmlFor="start">Start</label>
-          <Field id="start" name="start"  placeholder="2022-01-30" type="date" required/>
+          <Field id="start" name="start" placeholder="2022-01-30" type="date" required />
 
           <label htmlFor="end">End</label>
-          <Field id="end" name="end" placeholder="2022-02-08" type="date" required/>
+          <Field id="end" name="end" placeholder="2022-02-08" type="date" required />
 
           <label htmlFor="amount">Amount</label>
-          <Field id="amount" name="amount" placeholder="100" type="text" required/>
-          
+          <Field id="amount" name="amount" placeholder="100" type="text" required />
+
           <label htmlFor="dayOfWeek">Select Day</label>
           <Field as="select" id="dayOfWeek" name="dayOfWeek">
             {formOptions('dayOfWeek')}
-           </Field>
+          </Field>
 
-           <label htmlFor="time" data-tip={TIME_TOOLTIP}>Time</label>
-           <Field as="select" id="time" name="time" data-tip={TIME_TOOLTIP}>
-             {formOptions('time')}
-           </Field>
+          <label htmlFor="time" data-tip={TIME_TOOLTIP}>Time</label>
+          <Field as="select" id="time" name="time" data-tip={TIME_TOOLTIP}>
+            {formOptions('time')}
+          </Field>
 
           <label htmlFor="currency">Currency</label>
           <Field as="select" id="currency" name="currency">
-              {formOptions('currency')}
-           </Field>
+            {formOptions('currency')}
+          </Field>
 
           <button type="submit" className={style.button}>Get</button>
         </Form>
       </Formik>
-      </Wrapper>
-    );
+    </Wrapper>
+  );
 };
 
 export default Forms;
