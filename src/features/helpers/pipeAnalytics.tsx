@@ -1,42 +1,41 @@
 interface IHistory {
-    time: string;
+    time: string,
+    rate: number
 }
 
-export const calculatePeriod = (start: string, end: string, dayBuy: string, history?: Array<object>) => {
+export const calculatePeriod = (start: string, end: string, dayBuy: string, history?: Array<IHistory>) => {
 
     let tradeDays = []
     let actualData = new Date(start)
     let endFormatted = formatDate(new Date(new Date(end).getTime() + 86400000))
     let wallet = 0
 
-    while(formatDate(actualData) !== endFormatted ){
+    while (formatDate(actualData) !== endFormatted) {
 
-        if(+actualData.getDay() === +dayBuy){
+        if (+actualData.getDay() === +dayBuy) {
             tradeDays.push(formatDate(actualData))
-            
-            if(history)
-                wallet = wallet + buy(actualData, history) 
-        }  
-            
-            actualData.setDate(actualData.getDate() + 1)
-        }
 
-    return {buyCount: tradeDays, wallet: wallet}
+            if (history)
+                wallet = wallet + buySession(actualData, history)
+        }
+        actualData.setDate(actualData.getDate() + 1)
+    }
+    return { buyCount: tradeDays, wallet: wallet }
 }
 
-const buy = (day: any, history: any) =>{
-    
+const buySession = (day: Date, history: Array<IHistory>) => {
 
+    console.log(history)
     const formattedDate = formatDate(day)
     const selectedDay = history.find((el: IHistory) => (el.time.search(formattedDate) + 1))
-
-    return  100 / selectedDay.rate
+    console.log(selectedDay)
+    return 100 / selectedDay!.rate
 }
 
-export const formatDate = (date: any) => {
+export const formatDate = (date: Date) => {
 
     const offset = date.getTimezoneOffset()
-    date = new Date(date.getTime() - (offset*60*2000))
-    return  date.toISOString().split('T')[0]
+    date = new Date(date.getTime() - (offset * 60 * 2000))
+    return date.toISOString().split('T')[0]
 }
 

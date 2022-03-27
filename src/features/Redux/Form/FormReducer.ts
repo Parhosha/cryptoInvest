@@ -1,20 +1,21 @@
-/* eslint-disable @typescript-eslint/ban-types */
+import { TAction } from "../../../types";
+import { SET_PARAMS } from "./FormActions";
 
-export interface IForm {
-	start: string;
-    end: string;
-    dayOfWeek: string;
-    currency: string;
-    amount: string;
-	time: string;
+export type TForm = {
+	start: string,
+    end: string,
+    dayOfWeek: string,
+    currency: string,
+    amount: string,
+	time: string,
 }
 
 
-const formState: IForm = { start: '', end: '', dayOfWeek: '', currency: '', amount: '', time: '' };
+const formState: TForm = { start: '', end: '', dayOfWeek: '', currency: '', amount: '', time: '' };
 
-export default function FormReducer(state = formState, action: any) {
+export default function FormReducer(state = formState, action: TAction) {
 	switch (action.type) {
-		case 'SET_PARAMS':
+		case SET_PARAMS:
 
 		return {...state, ...action.payload}
 
@@ -23,9 +24,4 @@ export default function FormReducer(state = formState, action: any) {
 	}
 }
 
-export const action = {
-	setParameters: (values: IForm) => {
-		return { type: 'SET_PARAMS', payload: {...values } };
-	},
 
-};

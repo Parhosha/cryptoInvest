@@ -1,4 +1,4 @@
-import { FETCH_HOURS } from "../../../constants/words"
+import { FETCH_HOURS } from "../../../constants/values"
 import { Dispatch, AnyAction } from 'redux';
 import { getCryptoHours } from "./ChartActions";
 import { calculatePeriod } from "../../helpers/pipeAnalytics";
@@ -14,9 +14,7 @@ import { calculatePeriod } from "../../helpers/pipeAnalytics";
     const days = calculatePeriod(start, end, dayOfWeek)
 
     for await(let day of days.buyCount){
-        
         const serverTimeFormat = new Date(`${day}T${time}`)
-        console.log(serverTimeFormat,day, time)
         await dispatch(getCryptoHours(currency, FETCH_HOURS, serverTimeFormat.toISOString()))
     }
 

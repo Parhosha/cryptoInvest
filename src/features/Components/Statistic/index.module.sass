@@ -1,0 +1,51 @@
+
+.info
+    height: 300px
+    width: 30%
+    ul
+        li
+            list-style: none
+            animation: 1s linear appear forwards
+            margin: 20px
+            align-self: center
+
+            p
+                margin-left: 10px
+                display: inline-block
+
+    .content
+        align-self: center
+
+.backBtn
+    position: absolute
+    background-color: rgb(215,219,219,0.5)
+    text-align: center
+    color: black
+    border-radius: 20px
+    height: 30px
+    width: 100px
+    top: 40px
+    left: 5%
+    z-index: 9
+
+.positive,
+.negative
+    text-align: center
+    font-weight: 900
+    font-size: 1.2em
+    width: 100%
+    margin: 20px 0 0
+
+.positive
+    color: green
+
+.negative
+    color: red
+
+@keyframes appear
+
+    0%
+        opacity: 0
+
+    100%
+        opacity: 1
