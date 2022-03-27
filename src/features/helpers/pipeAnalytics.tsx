@@ -24,11 +24,8 @@ export const calculatePeriod = (start: string, end: string, dayBuy: string, hist
 }
 
 const buySession = (day: Date, history: Array<IHistory>) => {
-
-    console.log(history)
     const formattedDate = formatDate(day)
     const selectedDay = history.find((el: IHistory) => (el.time.search(formattedDate) + 1))
-    console.log(selectedDay)
     return 100 / selectedDay!.rate
 }
 
