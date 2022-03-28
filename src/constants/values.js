@@ -1,5 +1,7 @@
 export const FETCH_DAYS = 'FETCH_HISTORY_DAY_PERIOD'
 export const FETCH_HOURS = 'FETCH_HISTORY_HOURS_PERIOD'
+export const SET_DEFAULT_FORM = 'SET_DEFAULT_FORM'
+export const SET_DEFAULT_CHART = 'SET_DEFAULT_FORM'
 
 export const START = 'Start'
 export const END = 'End'

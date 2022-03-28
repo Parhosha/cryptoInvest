@@ -29,8 +29,8 @@ const FormContainer = ({ notify, children }: TFormContainer) => {
         onSubmit={(values: TForm) => {
           if (validationDates(values.start, values.end)) {
             dispatch(action.setParameters(values))
-            navigate(ROUTE.STATISTIC);
             dispatch(getData(values.start, values.end, values.currency, values.time, values.dayOfWeek))
+            navigate(ROUTE.STATISTIC);
           } else {
             notify()
           }

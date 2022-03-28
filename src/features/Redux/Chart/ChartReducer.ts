@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/ban-types */
-import { FETCH_DAYS, FETCH_HOURS } from "../../../constants/values";
+import { FETCH_DAYS, FETCH_HOURS, SET_DEFAULT_CHART } from "../../../constants/values";
 import { Dispatch, AnyAction } from "redux";
-import { getCryptoDay } from "./ChartActions";
-import { getHoursData } from "./helper";
+import actions from "./ChartActions";
+import { getHoursData } from "./service";
 import { formatDate } from "../../helpers/pipeAnalytics";
 import { TAction, TData } from "../../../types";
 import { isoConvertData } from "../../../features/helpers/pipeDates";
@@ -13,8 +13,8 @@ export type TChart = {
   currency: string;
 };
 
-
-const chartState: TChart = { history: [], historyHours: [], currency: "" };
+const initChartState: TChart = { history: [], historyHours: [], currency: "" };
+const chartState: TChart = {...initChartState };
 
 export default function ChartReducer(state = chartState, action: TAction) {
   switch (action.type) {
@@ -43,6 +43,9 @@ export default function ChartReducer(state = chartState, action: TAction) {
         ],
       };
 
+      case SET_DEFAULT_CHART:
+        return initChartState
+
     default:
       return state;
   }
@@ -62,7 +65,7 @@ export function getData(
 
       let endPlusDay = formatDate(new Date(new Date(end).getTime() + 86400000));
       await dispatch(
-        getCryptoDay(start, endPlusDay, currency, "1DAY", FETCH_DAYS)
+        actions.getCryptoDay(start, endPlusDay, currency, "1DAY", FETCH_DAYS)
       );
     } catch (e) {
       console.error(e);
