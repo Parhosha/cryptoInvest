@@ -10,9 +10,9 @@ import {
   Route,
 } from "react-router-dom";
 import Form from './features/Components/Form/index';
+import { ROUTE } from './constants/routes';
 
 import style from './App.module.sass'
-import { ROUTE } from './constants/routes';
 
 
 function App() {

@@ -1,9 +1,9 @@
-interface IHistory {
+type THistory = {
     time: string,
     rate: number
 }
 
-export const calculatePeriod = (start: string, end: string, dayBuy: string, history?: Array<IHistory>) => {
+export const calculatePeriod = (start: string, end: string, dayBuy: string, history?: Array<THistory>) => {
 
     let tradeDays = []
     let actualData = new Date(start)
@@ -23,9 +23,9 @@ export const calculatePeriod = (start: string, end: string, dayBuy: string, hist
     return { buyCount: tradeDays, wallet: wallet }
 }
 
-const buySession = (day: Date, history: Array<IHistory>) => {
+const buySession = (day: Date, history: Array<THistory>) => {
     const formattedDate = formatDate(day)
-    const selectedDay = history.find((el: IHistory) => (el.time.search(formattedDate) + 1))
+    const selectedDay = history.find((el: THistory) => (el.time.search(formattedDate) + 1))
     return 100 / selectedDay!.rate
 }
 
