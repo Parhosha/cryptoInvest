@@ -1,16 +1,16 @@
 import * as React from 'react'
 import cn from 'classnames'
-import style from "./Wrapper.module.sass"
+import style from "./index.module.sass"
 
-interface IWrap  { 
+interface IWrap {
     children: React.ReactNode;
     className: string;
- }
+}
 
 
-const Wrapper = ({children, className }: IWrap) => {
+const Wrapper = ({ children, className }: IWrap) => {
 
-    const compoundClasses = cn (style.template, className)
+    const compoundClasses = cn(style.template, className)
     return (
         <div className={compoundClasses}>
             {children}
